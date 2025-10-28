@@ -9,7 +9,7 @@ defineOptions({ name: 'SafeGuard' });
  * Uses native `beforeunload`. Some browsers ignore custom text, but this is the correct API.
  */
  
-import {onMounted, onUnmounted, useSlots, isVNode, Text} from 'vue';
+import {computed, onMounted, onUnmounted, useSlots, isVNode, Text} from 'vue';
 
 /**
  * @type {{guard: boolean|function: boolean, message: string}}
