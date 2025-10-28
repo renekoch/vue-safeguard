@@ -5,7 +5,7 @@
 defineOptions({ name: 'SafeGuard' });
 
 **
- * SafeGuard – warns before leaving when `enabled` is true.
+ * SafeGuard – warns before leaving when `guard` is true.
  * Uses native `beforeunload`. Some browsers ignore custom text, but this is the correct API.
  */
  
@@ -34,7 +34,7 @@ const props = defineProps({
  * @returns {boolean}
  */
 function isEnabled() {
-  return typeof props.enabled === 'function' ? !!props.enabled() : !!props.enabled;
+  return typeof props.guard === 'function' ? !!props.guard() : !!props.guard;
 }
 
 
