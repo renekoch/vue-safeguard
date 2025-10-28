@@ -4,7 +4,7 @@
 <script setup>
 defineOptions({ name: 'SafeGuard' });
 
-**
+/**
  * SafeGuard – warns before leaving when `guard` is true.
  * Uses native `beforeunload`. Some browsers ignore custom text, but this is the correct API.
  */
