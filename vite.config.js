@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/index.js',
-      name: 'UnsavedChangesGuard',
-      fileName: (format) => `unsaved-changes-guard.${format}.js`,
+      name: 'VueSafeguard',
+      fileName: (format) => `vue-safeguard.${format}.js`,
       formats: ['es', 'umd']
     },
     rollupOptions: {

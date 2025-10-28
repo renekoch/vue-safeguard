@@ -1,9 +1,9 @@
-import UnsavedChangesGuard from './UnsavedChangesGuard.vue';
+import SafeGuard from './SafeGuard.vue';
 
 /** Vue plugin API */
 export function install(app, options = {}) {
-  app.component(options.name || MyWidget.name, UnsavedChangesGuard);
+  app.component(options.name || SafeGuard.name, SafeGuard);
 }
 
-export { MyWidget };
+export { SafeGuard };
 export default { install };

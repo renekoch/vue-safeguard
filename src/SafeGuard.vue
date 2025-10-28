@@ -2,16 +2,15 @@
 <!-- Nothing is rendered; the slot is only used as the source for the text -->
 </template>
 <script setup>
+defineOptions({ name: 'SafeGuard' });
+
+**
+ * SafeGuard – warns before leaving when `enabled` is true.
+ * Uses native `beforeunload`. Some browsers ignore custom text, but this is the correct API.
+ */
+ 
 import {onMounted, onUnmounted, useSlots, isVNode, Text} from 'vue';
 
-/**
- * @type {Window|null}
- */
-const win = typeof window !== 'undefined' ? window : null;
-/**
- * @type {{default: null|function: VNode[]}}
- */
-const slots = useSlots();
 /**
  * @type {{guard: boolean|function: boolean, message: string}}
  */
@@ -37,6 +36,7 @@ const props = defineProps({
 function isEnabled() {
   return typeof props.enabled === 'function' ? !!props.enabled() : !!props.enabled;
 }
+
 
 /**
  * Extract plain text from a slot's VNodes.
@@ -65,7 +65,24 @@ function extractText(nodes, acc = []) {
 }
 
 /**
- * Handdles beforeunload event and block it if enabled
+ * @type {{default: null|function: VNode[]}}
+ */
+const slots = useSlots();
+
+/**
+ * @type {{value: string}}
+ */
+const effectiveMessage = computed(() => {
+  const slotNodes = slots.default ? slots.default() : [];
+  const fromSlot = extractText(slotNodes).trim();
+  if (fromSlot) return fromSlot;
+
+  return (props.message || '').trim();
+});
+
+
+/**
+ * Handles beforeunload event and block it if enabled
  * @param {Event} e
  * @returns {string}
  */
@@ -74,13 +91,13 @@ function handler(e) {
   e.preventDefault();
 
   // Get text from slot or fallback to message prop
-  const msg = extractText(slots.default?.()).trim() || props.message;
+  const msg = effectiveMessage.value;
 
   e.returnValue = msg; // Some browsers ignore custom text, but this is the correct API.
   
   return msg;
 }
 
-onMounted(() => win?.addEventListener('beforeunload', handler, {capture: true}));
-onUnmounted(() => win?.removeEventListener('beforeunload', handler, {capture: true}));
+onMounted(() => window.addEventListener('beforeunload', handler, {capture: true}));
+onUnmounted(() => window.removeEventListener('beforeunload', handler, {capture: true}));
 </script>

@@ -33,7 +33,7 @@ import VueSafeguard from 'vue-safeguard';
 import App from './App.vue';
 
 const app = createApp(App);
-app.use(VueSafeguard); // registers <SafeGuard />
+app.use(VueSafeguard); // registers <safe-guard />
 app.mount('#app');
 ```
 
@@ -41,9 +41,9 @@ Then in any component:
 
 ```vue
 <template>
-  <SafeGuard :enabled="isDirty">
+  <safe-guard :guard="isDirty">
     You have unsaved changes. Are you sure you want to leave?
-  </SafeGuard>
+  </safe-guard>
 
   <!-- your form/UI -->
 </template>
@@ -71,11 +71,11 @@ export default {
 
 ## API
 
-### `<SafeGuard />` props
+### `<safe-guard />` props
 
 | Prop      | Type      | Default                                                               | Description                                   |
 |-----------|-----------|-----------------------------------------------------------------------|-----------------------------------------------|
-| `enabled` | `Boolean` | `true`                                                                | Toggle the guard on/off.                      |
+| `guard`   | `Boolean` | `true`                                                                | Toggle the guard on/off.                      |
 | `message` | `String`  | `'You have unsaved changes. Are you sure you want to leave?'`         | Message used for `beforeunload` (see note).   |
 
 **Slot:** Optional. If provided, its text is used as the message (overrides `message` prop).
@@ -83,10 +83,10 @@ export default {
 Example:
 
 ```vue
-<SafeGuard :enabled="true">
+<safe-guard :guard="true">
   <!-- Nothing is rendered; the slot is only used as the source for the text -->
   You have unsaved changes!
-</SafeGuard>
+</safe-guard>
 ```
 
 ---
@@ -94,7 +94,7 @@ Example:
 ## How it works
 
 - Adds a capturing `beforeunload` listener on `mounted`.
-- If `enabled` is `true`, calls `event.preventDefault()` and sets `event.returnValue`.
+- If `guard` is `true`, calls `event.preventDefault()` and sets `event.returnValue`.
 - Removes the listener on `unmounted`.
 
 > Browser note: modern browsers may ignore custom strings and show a standard prompt instead. This is expected and per spec.
@@ -103,7 +103,7 @@ Example:
 
 ## Patterns & Tips
 
-- **Form dirty state:** Set `enabled` to `true` when any form field differs from its initial value.
+- **Form dirty state:** Set `guard` to `true` when any form field differs from its initial value.
 - **Route changes:** This component guards **tab/window closes and reloads**. For **in-app navigation** (Vue Router), use a route guard too if needed:
   ```js
   // pseudo-example
