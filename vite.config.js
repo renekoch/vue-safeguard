@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
@@ -7,13 +7,15 @@ export default defineConfig({
     lib: {
       entry: 'src/index.js',
       name: 'VueSafeguard',
-      fileName: (format) => `vue-safeguard.${format}.js`,
-      formats: ['es', 'umd']
+      fileName: (format) =>
+        format === 'es'
+          ? 'vue-safeguard.es.js'
+          : 'vue-safeguard.umd.cjs',
     },
     rollupOptions: {
       external: ['vue'],
       output: {
-        globals: { vue: 'Vue' }
+        globals: {vue: 'Vue'}
       }
     }
   }
