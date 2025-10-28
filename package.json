@@ -1,25 +1,48 @@
 {
-  "name": "unsaved-changes-guard",
+  "name": "vue-safeguard",
   "version": "1.0.0",
+  "description": "Vue 3 component/plugin that warns before leaving a page with unsaved changes (beforeunload).",
+  "repository": "git@github.com:renekoch/vue-safeguard.git",
+  "homepage": "https://github.com/renekoch/vue-safeguard#readme",
+  "author": "Rene Koch <renekoch@hotmail.com>",
   "type": "module",
-  "main": "./dist/unsaved-changes-guard.umd.cjs",
-  "module": "./dist/unsaved-changes-guard.es.js",
+  "main": "./dist/vue-safeguard.umd.cjs",
+  "module": "./dist/vue-safeguard.es.js",
   "exports": {
     ".": {
-      "import": "./dist/unsaved-changes-guard.es.js",
-      "require": "./dist/unsaved-changes-guard.umd.cjs"
+      "import": "./dist/vue-safeguard.es.js",
+      "require": "./dist/vue-safeguard.umd.cjs"
     }
   },
   "files": ["dist"],
+  "sideEffects": false,
   "peerDependencies": {
     "vue": "^3.3.0"
   },
   "devDependencies": {
-    "vite": "^5.0.0",
     "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0",
     "vue": "^3.3.0"
   },
   "scripts": {
-    "build": "vite build"
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
+  },
+  "bugs": {
+    "url": "https://github.com/renekoch/vue-safeguard/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "beforeunload",
+    "unsaved",
+    "guard",
+    "confirm-exit",
+    "plugin",
+    "component"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   }
 }
