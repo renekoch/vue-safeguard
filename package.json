@@ -1,0 +1,25 @@
+{
+  "name": "unsaved-changes-guard",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/unsaved-changes-guard.umd.cjs",
+  "module": "./dist/unsaved-changes-guard.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/unsaved-changes-guard.es.js",
+      "require": "./dist/unsaved-changes-guard.umd.cjs"
+    }
+  },
+  "files": ["dist"],
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vue": "^3.3.0"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}
